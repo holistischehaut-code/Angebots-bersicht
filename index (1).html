@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unsere Angebote – Reine Haut</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --brand:#c6640c; --brand-light:#f7ece0; --brand-dark:#8f4508; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#f9f5f1; display:flex; justify-content:center; padding:2.5rem 1rem 3rem; min-height:100vh; }
+    .wrap { font-family:'DM Sans',sans-serif; width:100%; max-width:700px; }
+
+    .card { background:#fff; border:0.5px solid #e0d8d0; border-radius:14px; padding:1.6rem 1.6rem 1.4rem; margin-bottom:16px; }
+    .card.featured { border:2px solid var(--brand); }
+
+    .card-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:1rem; }
+
+    .badge { display:inline-block; font-size:11px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:.6rem; }
+    .badge.main { background:var(--brand); color:#fff; }
+    .badge.opt { background:var(--brand-light); color:var(--brand-dark); }
+    .badge.express { background:#1a1a1a; color:#fff; }
+
+    .card-title { font-family:'Playfair Display',serif; font-size:21px; font-weight:600; color:#1a1a1a; margin-bottom:.3rem; }
+    .card-desc { font-size:14px; color:#777; line-height:1.6; }
+
+    .price-block { text-align:right; flex-shrink:0; }
+    .price { font-family:'Playfair Display',serif; font-size:30px; font-weight:600; color:var(--brand); display:block; }
+    .price-note { font-size:12px; color:#999; }
+
+    .section-label { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--brand); margin:1.1rem 0 .6rem; }
+
+    .items { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .items li { font-size:14px; color:#1a1a1a; display:flex; gap:9px; align-items:flex-start; line-height:1.55; }
+    .check { width:18px; height:18px; border-radius:50%; background:var(--brand-light); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .check svg { width:9px; height:9px; }
+
+    .when { background:#f5f3f0; border-radius:10px; padding:1rem 1.1rem; margin-top:1.1rem; }
+    .when-title { font-size:11px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:#888; margin-bottom:.6rem; }
+    .when-items { list-style:none; display:flex; flex-direction:column; gap:7px; }
+    .when-items li { font-size:13.5px; color:#1a1a1a; display:flex; gap:8px; align-items:flex-start; line-height:1.5; }
+    .arrow { color:var(--brand); font-size:14px; flex-shrink:0; }
+
+    .sep { height:.5px; background:#e0d8d0; margin:1.1rem 0; }
+
+    .bundle-prices { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1.1rem; }
+    .bp-box { background:var(--brand-light); border-radius:10px; padding:1rem 1.1rem; }
+    .bp-label { font-size:12px; color:var(--brand-dark); margin-bottom:4px; }
+    .bp-price { font-family:'Playfair Display',serif; font-size:26px; color:var(--brand); font-weight:600; }
+    .bp-save { font-size:11px; color:var(--brand-dark); margin-top:3px; }
+
+    .info-box { display:flex; gap:9px; align-items:flex-start; background:var(--brand-light); border-radius:8px; padding:.75rem 1rem; margin-top:1rem; font-size:13px; color:var(--brand-dark); line-height:1.6; }
+    .info-box .icon { flex-shrink:0; font-size:14px; margin-top:1px; }
+
+    .checkup-box { border:1px solid #e0d8d0; border-radius:10px; padding:1rem 1.1rem; margin-top:1rem; }
+    .checkup-title { font-size:13px; font-weight:700; color:#1a1a1a; margin-bottom:.5rem; }
+    .checkup-sub { font-size:13px; color:#777; margin-bottom:.6rem; }
+    .checkup-items { list-style:none; display:flex; flex-direction:column; gap:6px; margin-bottom:.7rem; }
+    .checkup-items li { font-size:13.5px; color:#1a1a1a; display:flex; gap:8px; line-height:1.5; }
+    .checkup-warning { font-size:13px; color:#777; line-height:1.55; margin-bottom:.6rem; font-style:italic; }
+    .checkup-extra { font-size:13.5px; color:#1a1a1a; line-height:1.55; }
+
+    .warning-box { display:flex; gap:9px; align-items:flex-start; background:#fff8f0; border:1px solid #f0c090; border-radius:8px; padding:.75rem 1rem; margin-top:1rem; font-size:13.5px; color:#7a4010; line-height:1.55; }
+
+    /* Support grid */
+    .support-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:1.1rem; }
+    .sp-box { background:var(--brand-light); border-radius:10px; padding:1rem .9rem; text-align:center; }
+    .sp-box.popular { background:#f0e0cc; border:2px solid var(--brand); position:relative; }
+    .sp-popular-label { position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--brand); color:#fff; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:10px; white-space:nowrap; }
+    .sp-q { font-size:12px; font-weight:500; color:var(--brand-dark); margin-bottom:5px; line-height:1.4; }
+    .sp-p { font-family:'Playfair Display',serif; font-size:26px; color:var(--brand); font-weight:600; line-height:1.2; }
+    .sp-box.popular .sp-p { font-size:30px; }
+    .sp-desc { font-size:11px; color:var(--brand-dark); margin-top:5px; line-height:1.45; }
+
+    .hinweis-box { background:#fff8f0; border:1px solid #f0c090; border-radius:8px; padding:.85rem 1rem; margin-top:1rem; }
+    .hinweis-title { font-size:13.5px; font-weight:700; color:#7a4010; margin-bottom:.4rem; }
+    .hinweis-items { list-style:none; }
+    .hinweis-items li { font-size:13.5px; color:#7a4010; line-height:1.55; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1. Einzel-Auswertung -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="badge main">1 · Einzel-Auswertung</div>
+        <div class="card-title">Einzel-Auswertung</div>
+        <div class="card-desc">Gezielte Anpassung auf deinem aktuellen Stand – damit du weiter Fortschritte machst.</div>
+      </div>
+      <div class="price-block">
+        <span class="price">249€</span>
+        <span class="price-note">einmalig</span>
+      </div>
+    </div>
+
+    <div class="section-label">Das bekommst du</div>
+    <ul class="items">
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Angepasster Supplement-Plan basierend auf deinem aktuellen Stand</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Klare Auswertung deiner Haaranalyse (PDF)</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Konkrete nächste Schritte für deinen weiteren Fortschritt</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dauer für die Auswertung: 2–3 Wochen</li>
+    </ul>
+
+    <div class="info-box"><span class="icon">ℹ</span>Der Haaranalysen-Labortest ist nicht im Preis enthalten und muss separat dazugekauft werden.</div>
+
+    <div class="checkup-box">
+      <div class="checkup-title">✅ Check-Up inklusive</div>
+      <div class="checkup-sub">Nach ca. 4 Wochen:</div>
+      <ul class="checkup-items">
+        <li><span style="color:var(--brand);">·</span>Du gibst uns ein kurzes Update per Fragebogen</li>
+        <li><span style="color:var(--brand);">·</span>Wir geben dir gezieltes Feedback + kleine Anpassungen</li>
+      </ul>
+      <div class="checkup-warning">⚠️ Dieser Check-Up ist bewusst kurz gehalten und ersetzt keine individuelle Betreuung oder Rückfragen.</div>
+      <div class="checkup-extra"><strong>Zusätzlich möglich:</strong> Wenn du noch Fragen hast oder unsicher bist, kannst du dir Support dazubuchen.</div>
+    </div>
+
+    <div class="when">
+      <div class="when-title">Wann ist das sinnvoll?</div>
+      <ul class="when-items">
+        <li><span class="arrow">→</span>Wenn du wissen willst: Was hat sich in den letzten Monaten verändert</li>
+        <li><span class="arrow">→</span>Was muss jetzt angepasst werden, damit du weiter Fortschritte machst</li>
+        <li><span class="arrow">→</span>Zur Prävention, um Probleme frühzeitig zu erkennen</li>
+        <li><span class="arrow">→</span>Um langfristig einen gesunden Körper aufzubauen</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. Auswertungs-Bundle -->
+  <div class="card featured">
+    <div class="badge main">⭐ 2 · Auswertungs-Bundle + Check-Up – Empfohlen</div>
+    <div class="card-title">Auswertungs-Bundle + Check-Up</div>
+    <div class="card-desc">Mehrere aufeinander aufbauende Analysen mit laufendem Feedback.</div>
+
+    <div class="sep"></div>
+    <div class="bundle-prices">
+      <div class="bp-box">
+        <div class="bp-label">2 Analysen</div>
+        <div class="bp-price">429€</div>
+        <div class="bp-save">Du sparst 69€</div>
+      </div>
+      <div class="bp-box">
+        <div class="bp-label">3 Analysen</div>
+        <div class="bp-price">629€</div>
+        <div class="bp-save">Du sparst 118€</div>
+      </div>
+    </div>
+
+    <div class="section-label">Das bekommst du</div>
+    <ul class="items">
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mehrere aufeinander aufbauende Auswertungen deiner Haaranalyse – flexibel einlösbar (z. B. alle 3–4 Monate)</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fortlaufende Anpassung deines Supplement-Plans</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Check-Up nach jeder Analyse</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mehrere Analysen zu einem besseren Preis</li>
+    </ul>
+
+    <div class="info-box"><span class="icon">ℹ</span>Der Haaranalysen-Labortest ist nicht im Preis enthalten und muss separat dazugekauft werden.</div>
+
+    <div class="checkup-box">
+      <div class="checkup-title">✅ Check-Up inklusive</div>
+      <div class="checkup-sub">Nach ca. 4 Wochen:</div>
+      <ul class="checkup-items">
+        <li><span style="color:var(--brand);">·</span>Du gibst uns ein kurzes Update per Fragebogen</li>
+        <li><span style="color:var(--brand);">·</span>Wir geben dir gezieltes Feedback + kleine Anpassungen</li>
+      </ul>
+      <div class="checkup-warning">⚠️ Dieser Check-Up ist bewusst kurz gehalten und ersetzt keine individuelle Betreuung oder Rückfragen.</div>
+      <div class="checkup-extra"><strong>Zusätzlich möglich:</strong> Wenn du noch Fragen hast oder unsicher bist, kannst du dir Support dazubuchen.</div>
+    </div>
+
+    <div class="when">
+      <div class="when-title">Wann ist das sinnvoll?</div>
+      <ul class="when-items">
+        <li><span class="arrow">→</span>Wenn du es wirklich ernst meinst und langfristig einen gesunden Körper aufbauen willst, ist das Auswertungs-Bundle die beste Wahl</li>
+        <li><span class="arrow">→</span>Ein gesunder Körper ist kein kurzfristiges Projekt – deshalb braucht es regelmäßige Anpassung</li>
+        <li><span class="arrow">→</span>Die Analysen helfen dir, deinen Fortschritt im Blick zu behalten und deinen Plan gezielt anzupassen</li>
+        <li><span class="arrow">→</span>Egal ob du noch im Prozess bist oder zur Vorsorge 1–2x im Jahr analysierst – du bekommst mehrere Analysen zu einem besseren Preis</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3. Express-Auswertung -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="badge express">⚡ Express-Auswertung · Optionales Upgrade</div>
+        <div class="card-title">Express-Auswertung</div>
+        <div class="card-desc">Priorisierte Auswertung innerhalb von 48 Stunden.</div>
+      </div>
+      <div class="price-block">
+        <span class="price">+149€</span>
+        <span class="price-note">zusätzlich</span>
+      </div>
+    </div>
+
+    <div class="when">
+      <div class="when-title">Für wen ist das sinnvoll?</div>
+      <ul class="when-items">
+        <li><span class="arrow">→</span>Wenn du nicht unnötig warten willst</li>
+        <li><span class="arrow">→</span>Wenn du schnell Klarheit brauchst, um direkt weiterzumachen</li>
+        <li><span class="arrow">→</span>Wenn du sofort mit Anpassungen starten möchtest</li>
+      </ul>
+    </div>
+
+    <div class="warning-box">
+      <span>⚠️</span>
+      <div><strong>Wichtig:</strong> Die Express-Auswertung ist ein optionales Upgrade und wird zusätzlich zum gewählten Paket berechnet. Begrenzte Kapazitäten pro Woche.</div>
+    </div>
+  </div>
+
+  <!-- 4. Support-Pakete -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="badge opt">4 · Optional</div>
+        <div class="card-title">Support-Pakete</div>
+        <div class="card-desc">Gezielte Fragen zwischen den Analysen – Antwort innerhalb von 48–72 Stunden.</div>
+      </div>
+    </div>
+
+    <div class="support-grid">
+      <div class="sp-box">
+        <div class="sp-q">5 individuelle Antworten</div>
+        <div class="sp-p">89€</div>
+        <div class="sp-desc">Für einzelne Rückfragen &amp; kurze Einschätzungen.</div>
+      </div>
+      <div class="sp-box popular" style="position:relative;">
+        <div class="sp-popular-label">Am beliebtesten</div>
+        <div class="sp-q">10 individuelle Antworten</div>
+        <div class="sp-p">149€</div>
+        <div class="sp-desc">Für intensivere Begleitung bei mehreren Themen.</div>
+      </div>
+      <div class="sp-box">
+        <div class="sp-q">20 individuelle Antworten</div>
+        <div class="sp-p">249€</div>
+        <div class="sp-desc">Für langfristigere Unterstützung &amp; regelmäßige Rückfragen.</div>
+      </div>
+    </div>
+
+    <div class="section-label">Das bekommst du</div>
+    <ul class="items">
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Individuelle Antworten auf deine Fragen</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Recherche &amp; hilfreiche Ressourcen bei Bedarf</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Konkrete Empfehlungen &amp; verständliche Einordnungen</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Antwort innerhalb von 48–72 Stunden</li>
+    </ul>
+
+    <div class="when">
+      <div class="when-title">Wann ist das sinnvoll?</div>
+      <ul class="when-items">
+        <li><span class="arrow">→</span>Wenn du zwischen den Analysen zusätzliche Sicherheit möchtest</li>
+        <li><span class="arrow">→</span>Wenn du gezielte Rückfragen zu deinen Ergebnissen hast</li>
+        <li><span class="arrow">→</span>Wenn du zwischen den Analysen Sicherheit bei einzelnen Entscheidungen brauchst</li>
+        <li><span class="arrow">→</span>Du allgemein Fragen zum Thema Gesundheit hast und dir mehr Unterstützung wünschst</li>
+      </ul>
+    </div>
+
+    <div class="hinweis-box">
+      <div class="hinweis-title">❗ Wichtiger Hinweis</div>
+      <ul class="hinweis-items">
+        <li>Nicht genutzte Support-Antworten bleiben bis zu 12 Monate ab Kaufdatum gültig.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 5. Video-Analyse -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="badge opt">5 · Optional</div>
+        <div class="card-title">Video-Analyse</div>
+        <div class="card-desc">Persönliche Video-Erklärung deiner Ergebnisse – zusätzlich zu jeder Analyse buchbar.</div>
+      </div>
+      <div class="price-block">
+        <span class="price">+30€</span>
+        <span class="price-note">pro Analyse</span>
+      </div>
+    </div>
+
+    <div class="section-label">Das bekommst du zusätzlich</div>
+    <ul class="items">
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Persönliche Video-Erklärung deiner Ergebnisse</li>
+      <li><span class="check"><svg viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#c6640c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fokus auf: Was hat sich verändert? Was bedeutet das konkret für dich? Was ist jetzt wirklich wichtig?</li>
+    </ul>
+
+    <div class="when">
+      <div class="when-title">Wann ist das sinnvoll?</div>
+      <ul class="when-items">
+        <li><span class="arrow">→</span>Wenn du maximale Klarheit willst und dir die schriftliche Auswertung, die du ohnehin per PDF von uns bekommst, nicht ausreicht</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
